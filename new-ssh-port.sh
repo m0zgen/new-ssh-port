@@ -1,5 +1,5 @@
 #!/bin/bash
-# Add new port in SSHD service, allow in firewalld, add port in to selinux in CentOS
+# Add new port in SSHD service, allow in firewalld, add port in to selinux in CentOScat
 
 PORT=2020
 
@@ -15,7 +15,9 @@ semanage port -l | grep ssh
 
 # Backup config. Change sshd_config
 cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
-echo "" > /etc/ssh/sshd_config
+
+# Clean file and delete first empty line
+echo "" > /etc/ssh/sshd_config && sed -i '1{/^$/d}' /etc/ssh/sshd_config
 
 cat >>/etc/ssh/sshd_config <<EOF
 Port 2020
